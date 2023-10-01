@@ -1,23 +1,20 @@
-import Customer from "../../../models/Customer";
-import connectDB from "../../../utils/connectDB";
+import connectDB from "@/utils/connectDB";
+import Customer from "@/models/Customer";
 
 export default async function handler(req , res) {
+     
      try {
-          await connectDB();
+          await connectDB()
      } catch (error) {
-          console.log(error)
-          res
-          .status(500)
-          .json({status : "failed" , message : "Error in connection to DB"})
-          return;
+          console.log("error in api edit",error.essage)
+          res.status(500).json({status : "failed", message :"Error in connection to DB"})
      }
 
      if (req.method === "PATCH") {
-          const id = req.query.customerId;
-          const data = req.body.data;
-
+          const id  = req.query.customerId;
+          const data = req.body.data
           try {
-               const customer = await Customer.findOne({ _id:id });
+               const customer = await Customer.findOne({_id : id})
                customer.name = data.name;
                customer.lastName = data.lastName;
                customer.email = data.email;
@@ -28,10 +25,10 @@ export default async function handler(req , res) {
                customer.products = data.products;
                customer.updatedAt = Date.now();
                customer.save();
-               res.status(200).json({ status: "success", data: customer });
+               res.status(200).json({status : "success" , data : customer})
           } catch (error) {
                console.log(error.message)
-               res.status(500).json({status : "failed" , message : "Error in retrieving data from database"}) 
+               res.status(500).json({status : "failed" , message : "Error in retrieving data from database"})
           }
      }
 }

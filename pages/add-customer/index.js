@@ -1,4 +1,4 @@
-import AddCustomerPages from "../../components/template/AddCustomerPages";
+import AddCustomerPages from "@/template/AddCustomerPages";
 
 const Index = () => {
      return (

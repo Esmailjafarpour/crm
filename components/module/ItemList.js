@@ -1,60 +1,67 @@
-import FormInput from "./FormInput";
+import FormInput from "../module/FormInput";
 
-const ItemList = ({ form, setForm }) => {
+const ItemList = ({form , setForm}) => {
+
   const { products } = form;
 
   const addHandler = () => {
-    setForm({
-      ...form,
-      products: [
-        ...products,
-        {
-          name: "",
-          price: "",
-          qty: "",
-        },
-      ],
-    });
-    console.log(form.products);
-  };
+      setForm({
+        ...form,
+        products : [
+          ...products , {
+            name : "",
+            price : "",
+            qty : ""
+          },
+        ],
+      })
+      console.log("products",products)
+  }
 
-  const changeHandler = (e, index) => {
-    const { name, value } = e.target;
+  const changeHandler = (e , index) => {
+    const {name , value } = e.target;
     const newProducts = [...products];
     newProducts[index][name] = value;
-    setForm({ ...form, products: newProducts });
-  };
+    setForm({
+      ...form,
+      products : newProducts
+    })
+  }
 
   const deleteHandler = (index) => {
-    const newProducts = [...products];
-    newProducts.splice(index, 1);
-    setForm({ ...form, products: newProducts });
-  };
+    const newProducts = [...products]
+    newProducts.splice(index , 1)
+    setForm({
+      ...form,
+      products : newProducts
+    })
+
+  }
 
   return (
     <div className="item-list">
       <p>Purchased Product</p>
-      {products.map((product, index) => (
-        <ProductItem
+      {products.map((product , index) => (
+         <ProductItem 
           key={index}
-          product ={product}
-          changeHandler={(e) => changeHandler(e, index)}
+          product={product}
+          changeHandler={(e)=> changeHandler(e , index)}
           deleteHandler={() => deleteHandler(index)}
-        />
+         />
       ))}
       <button onClick={addHandler}>Add Item</button>
     </div>
   );
-};
+}
 
 export default ItemList;
 
 function ProductItem({product , changeHandler , deleteHandler}) {
-  return (
+  return(
     <div className="form-input__list">
       <FormInput
         name="name"
-        label="Product Name"
+        label="product Name"
         type="text"
         value={product.name}
         onChange={changeHandler}
@@ -67,7 +74,7 @@ function ProductItem({product , changeHandler , deleteHandler}) {
           value={product.price}
           onChange={changeHandler}
         />
-        <FormInput
+         <FormInput
           name="qty"
           label="Qty"
           type="number"
@@ -77,5 +84,5 @@ function ProductItem({product , changeHandler , deleteHandler}) {
       </div>
       <button onClick={deleteHandler}>Remove</button>
     </div>
-  );
+  )
 }

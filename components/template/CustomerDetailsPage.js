@@ -1,5 +1,4 @@
-
-import React from "react"
+import React from "react";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,16 +12,17 @@ const Index = ({data}) => {
           const newRes = await res.json();
           if(newRes.status === "success") router.push("/")
      }
+
      return (
           <div className="customer-detail">
-               <h4>Customers Details</h4>
+               <h4>Customer Details</h4>
                <div className="customer-detail__main">
                     <div className="customer-detail__item">
                          <span>Name :</span>
                          <p>{data.name}</p>
                     </div>
                     <div className="customer-detail__item">
-                         <span>LastName :</span>
+                         <span>Last Name :</span>
                          <p>{data.lastName}</p>
                     </div>
                     <div className="customer-detail__item">
@@ -50,8 +50,8 @@ const Index = ({data}) => {
                <div className="customer-detail__products">
                     <p>Name :</p>
                     <p>Price :</p>
-                    <p>Qty :</p> 
-                    {data.products.map((product , index ) => (
+                    <p>Qty :</p>
+                    {data.products.map((product,index) => (
                          <React.Fragment key={index}>
                               <span>{product.name}</span>
                               <span>{product.price}</span>
@@ -59,12 +59,13 @@ const Index = ({data}) => {
                          </React.Fragment>
                     ))}
                </div>
+
                <div className="customer-detail__buttons">
-                    <p>Edit Or Delete?</p>
+                    <p>Edit or Delete?</p>
                     <button onClick={deleteHandler}>Delete</button>
                     <Link href={`/edit/${data._id}`}>Edit</Link>
                </div>
-       
+
           </div>
      );
 }

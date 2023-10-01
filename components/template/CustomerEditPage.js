@@ -1,10 +1,10 @@
-import moment from "moment";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useState } from 'react';
-import Form from "../module/Form";
+import Form from "@/module/Form";
+import moment from "moment";
 
 const CustomerEditPage = ({data , id}) => {
-     const date = data.date ? moment(data.date).utc().format("YYYY-MM-DD") : "";
+     const date = data.date ? moment(data.date).utc().format("YYYY-MM-DD") : "" ;
      const [form, setForm] = useState({
           name : data.name,
           lastName : data.lastName,
@@ -13,24 +13,25 @@ const CustomerEditPage = ({data , id}) => {
           address : data.address || "",
           postalCode : data.postalCode || "",
           products : data.products || "",
-          date : date,
+          date : date
      });
 
      const router = useRouter();
 
+     const saveHandler = async () => {
+          const res = await fetch(`/api/edit/${id}`,{
+               method : "PATCH",
+               body : JSON.stringify({data : form}),
+               headers : {"Content-Type" : "application/json"},
+          })
+
+          const data = await res.json()
+          if (data.status === "success") router.push("/") 
+     }
+
      const cancelHandler = () => {
           router.push("/")
      }
-
-     const saveHandler = async () => {
-          const res = await fetch(`/api/edit/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ data: form }),
-            headers: { "Content-Type": "application/json" },
-          });
-          const data = await res.json();
-          if (data.status === "success") router.push("/");
-     };
 
      return (
           <div className="customer-page">
