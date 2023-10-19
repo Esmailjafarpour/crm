@@ -159,6 +159,19 @@ h4 {
   padding: 5px;
 }
 
+.customer-page{
+  width: 50%;
+  margin: 0 auto;
+}
+
+.customer-page h3 {
+  color: #57aac8;
+}
+
+.customer-page p{
+  color: bisque;
+}
+
 .customer-page__buttons {
   display: flex;
   justify-content: space-between;
